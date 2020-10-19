@@ -14,27 +14,22 @@ class App extends Component {
         keyword: ''
     }
     
-    handleChange(e)
+    handleChange = function (e)
     {
         this.setState({
             keyword: e.target.value
         })
-    }
+    };
 
-    handleClick(e)
-    {
-        alert(this.state.keyword);
-    }
-
-    handleCreate(data)
+    handleCreate = function (data)
     {
 		const { contacts } = this.state;
 		this.setState({
 			contacts: contacts.concat(new Values.Contact(this.id++, data.name, data.phone))
 		});
-    }
+    };
     
-    handleRemove(id)
+    handleRemove = function (id)
     {
         const { contacts } = this.state;
         this.setState({
@@ -42,18 +37,18 @@ class App extends Component {
                 return val.id !== id;
             })
         });
-    }
+    };
 
-    handleUpdate(id, data)
+    handleUpdate = function (id, data)
     {
         this.setState({
             contacts: this.state.contacts.map(contact => id === contact.id ? {...contact, ...data} : contact)
         });
-    }
+    };
 
-	render() {
-		const { contacts, keyword } = this.state;
-        const filtered = this.state.contacts.filter(function (contact) {
+	render = function () {
+        const { contacts, keyword } = this.state;
+        const filtered = contacts.filter(function (contact) {
             return contact.name.indexOf(keyword)!==-1;
         });
         return (
@@ -65,9 +60,6 @@ class App extends Component {
                     placeholder="검색할 이름을 입력하세요." 
                     onChange={this.handleChange.bind(this)} 
                     value={this.state.keyword}/>
-                    <button 
-                        onClick={this.handleClick.bind(this)}
-                    >검색</button>
                 </p>
                 
                 <Contacts 
@@ -77,7 +69,7 @@ class App extends Component {
                 />
             </div>
         );
-	}
+	}.bind(this);
 }
 
 export default App;
